@@ -1,0 +1,36 @@
+.footer-title {
+    color: #fff;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+}
+
+.footer-menu {
+    padding-left: 0;
+}
+
+.footer-item:not(:last-child) {
+    margin-bottom: 11px;
+}
+
+.footer-link {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    display: block;
+    padding-bottom: 3px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid #b9b9b9;
+}
+
+.footer-link:hover {
+    color: #fff;
+}
+
+.separator {
+    color: #fff;
+    margin: 0;
+}

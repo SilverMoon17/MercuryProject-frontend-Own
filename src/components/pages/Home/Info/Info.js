@@ -1,15 +1,13 @@
-import { Component } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import logo from '../../resources/logo(black).svg'
-import image_1 from '../../resources/image1.png'
+import logo from '../../../../resources/logo(black).svg'
+import image_1 from '../../../../resources/image1.png'
 import './Info.css'
 
 
-class Info extends Component {
-    render() {
+function Info() {
         return(
             <Container className="info-container">
                 <Row className="justify-content-md-center">
@@ -19,7 +17,7 @@ class Info extends Component {
                         A mollis metus egestas faucibus sed molestie ut. 
                         Dignissim tellus purus sed elit egestas eget ornare fermentum. In lorem consequat arcu vitae. Maecenas.</p>
                         <img src={image_1} alt="City of future" className="info-img" />
-                        <p className="info-text" style={{"margin-bottom": "130px"}}>Lorem ipsum dolor sit amet consectetur. Proin maecenas volutpat adipiscing commodo vitae nulla quis a. 
+                        <p className="info-text" style={{marginBottom: '130px'}}>Lorem ipsum dolor sit amet consectetur. Proin maecenas volutpat adipiscing commodo vitae nulla quis a. 
                         Ac viverra non pulvinar eget nec. Viverra sagittis integer elementum imperdiet vitae nisl dolor. Tellus arcu maecenas mauris pretium 
                         facilisis et elementum commodo sed.
                         Non neque euismod aliquet cras. Ornare vel enim tellus diam dictum congue nunc ut sed. Sem enim velit adipiscing fermentum eu mollis tellus vel ultrices. 
@@ -31,7 +29,6 @@ class Info extends Component {
                 </Row>
             </Container>
         )
-    }
 }
 
 export default Info;

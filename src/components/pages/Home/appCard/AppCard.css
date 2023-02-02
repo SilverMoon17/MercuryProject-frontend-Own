@@ -1,0 +1,35 @@
+.card-container {
+    margin-top: 1200px;
+    margin-bottom: 258px;
+}
+
+.card {
+    border: none !important;
+    border-radius: 0px !important;
+}
+
+.title
+{
+    font-weight: 800;
+    font-size: 32px;
+    line-height: 38px;
+    text-align: center;
+    margin-bottom: 34px;
+}
+
+.card-title {
+    margin-bottom: 33px !important;
+    font-weight: 700 !important;
+    font-size: 24px !important;
+    line-height: 28px !important;
+}
+
+.card-text {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+}
+
+.card-button {
+    margin-top: 83px;
+}

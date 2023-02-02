@@ -5,24 +5,29 @@
     background-color: rgba(67, 67, 67, 0.5) !important;
 }
 
-.navbar-brand {
-    margin-right: 0 !important;
-}
-
-.navbar-brand:hover {
-    color: #FFF !important;
-}
-
 .logo
 {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color:#FFF;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 28px;
+}
+.logo:hover
+{
+
+    color:#FFF;
+}
+
+.logo img {
     margin-right: 20px;
 }
 
 .navbar-collapse
 {
-    display: flex!important;
-    flex-basis: auto;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     margin-left: 15%;
 }
 
@@ -31,4 +36,9 @@
     font-weight: 400 !important;
     font-size: 20px !important;
     line-height: 23px !important;
+    color: #fff !important;
+}
+
+.nav-link:hover {
+    opacity: 0.7;
 }

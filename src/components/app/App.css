@@ -1,11 +1,13 @@
-.main {
-  position: relative !important;
-}
-
 .bg-img
 {
-  position: absolute !important;
+  /* position: absolute !important; */
   z-index: 1;
   height: 526px;
   width: 100%;
+}
+
+.footer {
+  background: #212321;
+  padding-top: 57px;
+  padding-bottom: 110px;
 }

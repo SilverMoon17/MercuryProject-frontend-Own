@@ -1,25 +1,30 @@
-import { Component } from "react";
+import { Route, Routes } from "react-router-dom";
 
 import AppHeader from "../appHeader/AppHeader";
-import Info from "../Info/Info";
+import Home from "../pages/Home/Home";
+import AppFooter from "../appFooter/AppFooter";
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import background from '../../resources/background.jpg';
 
-class App extends Component {
-  render() {
+function App() {
     return (
-    <div className="app">
-      <AppHeader/>
-      <main className="main">
+      <div className="app">
+        <AppHeader/>
         <img src={background} alt="" className="bg-img" />
-      </main>
-      <Info/>
-    </div>
+        <Routes>
+          <Route path="/" element={<Home />}/>
+          <Route path="/projects" element={<h1>Projects</h1>}/>
+          <Route path="/ideas" element={<h1>Projects</h1>}/>
+          <Route path="/store" element={<h1>Projects</h1>}/>
+        </Routes>
+        <footer className="footer">
+          <AppFooter/>
+        </footer>
+      </div>
     )
-  }
 }
 
 export default App;
