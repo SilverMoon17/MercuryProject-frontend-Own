@@ -14,7 +14,6 @@ function AppHeader()  {
                 className="d-flex align-center" alt="Mercury Project logo"/> 
                 THE MERCURY PROJECT
                 </Link>
-                {/* <Navbar.Brand className="white__text d-flex align-center">THE MERCURY PROJECT</Navbar.Brand> */}
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
