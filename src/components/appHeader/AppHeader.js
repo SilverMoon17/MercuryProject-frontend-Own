@@ -8,7 +8,7 @@ import './AppHeader.css';
 
 function AppHeader()  {
     return (
-        <Navbar expand="lg" className="navbar__menu">
+        <Navbar expand="lg" className="navbar__menu" fixed='top'>
             <Container>
                 <Link to="/" className="logo"><img src={logo} width="180" height="32" 
                 className="d-flex align-center" alt="Mercury Project logo"/> 
@@ -20,7 +20,7 @@ function AppHeader()  {
                     <Link to="/projects" className="nav-link">Projects</Link>
                     <Link to="/ideas" className="nav-link">Ideas</Link>
                     <Link to="/store" className="nav-link">Store</Link>
-                    <Link to="/product" className="nav-link">Product</Link>
+                    <Link to="/pageCreating" className="nav-link">PageCreating</Link>
                 </Nav>
                 <Nav className="mr-auto">
                     <Link to="/projects" className="nav-link">Log in</Link>

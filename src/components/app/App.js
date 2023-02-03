@@ -9,6 +9,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import background from '../../resources/background.jpg';
+import PageCreating from "../pages/ProductCreating/ProductCreating";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/ideas" element={<h1>Projects</h1>}/>
           <Route path="/store" element={<h1>Projects</h1>}/>
           <Route path="/product" element={<Product />}/>
+          <Route path="/pageCreating" element={<PageCreating/>}/>
         </Routes>
         <footer className="footer">
           <AppFooter/>
