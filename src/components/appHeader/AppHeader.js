@@ -23,8 +23,8 @@ function AppHeader()  {
                     <Link to="/pageCreating" className="nav-link">PageCreating</Link>
                 </Nav>
                 <Nav className="mr-auto">
-                    <Link to="/projects" className="nav-link">Log in</Link>
-                    <Link to="/projects" className="nav-link">Sign up</Link>
+                    <Link to="/login" className="nav-link">Log in</Link>
+                    <Link to="/register" className="nav-link">Sign up</Link>
                 </Nav>
                 </Navbar.Collapse>
             </Container>

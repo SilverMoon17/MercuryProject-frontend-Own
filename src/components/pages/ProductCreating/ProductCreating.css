@@ -24,6 +24,10 @@
 .product-info-inputs {
     width: 60%;
 }
+
+.product-creating-inputs {
+    padding-bottom: 50px;
+}
 .create-button {
     margin-left: 77%;
     margin-top: 120px;
@@ -31,15 +35,25 @@
     background-color: transparent;
     border: 1px solid rgb(1, 199, 14);
     color: rgb(1, 199, 14);
+    border-radius: 10px;
 }
 
 .create-button:hover {
     background-color:rgb(1, 199, 14);
+    color: #fff;
+}
+
+.product-creating-inputs {
+    margin-right: 10px;
+    align-items: flex-start;
 }
 
 .product-creating-inputs {
     margin-right: 10px;
 }
+/* .product-creating-inputs>.input-group>.invalid-feedback {
+    position: absolute;
+} */
 .dropzone {
     margin-top: 20px;
     flex: 1;
