@@ -18,7 +18,7 @@ export default function Ideas() {
             </Row>
             <Row>
                 <Col md={12}>
-                    <form className="search-box d-flex align-items-center">
+                    <form className="search-box d-flex align-items-center jusitfy-content-end">
                         <div className="search-input-group">
                             <input type="text" placeholder='Search' className='search-input' />
                         </div>
