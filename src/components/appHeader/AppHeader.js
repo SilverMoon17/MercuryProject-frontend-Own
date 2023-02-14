@@ -21,6 +21,7 @@ function AppHeader()  {
                     <Link to="/ideas" className="nav-link">Ideas</Link>
                     <Link to="/store" className="nav-link">Store</Link>
                     <Link to="/pageCreating" className="nav-link">PageCreating</Link>
+                    <Link to="/Panel" className="nav-link">Panel</Link>
                 </Nav>
                 <Nav className="mr-auto">
                     <Link to="/login" className="nav-link">Log in</Link>
