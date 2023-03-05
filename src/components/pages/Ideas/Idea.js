@@ -13,7 +13,7 @@ export default function Idea() {
         setProgress((currVal * 100) / maxVal);
     }
 
-    useEffect(() => { calcProgress(currVal, 10000) })
+    useEffect(() => { calcProgress(5000, 10000) })
 
     return (
         <>

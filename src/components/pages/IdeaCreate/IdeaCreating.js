@@ -207,9 +207,9 @@ export default function IdeaCreating(props) {
 													<option>Choose category</option>
 													<option>IT</option>
 													<option>Communication</option>
-                                                    <options>Agriculture</options>
-                                                    <options>Transport</options>
-                                                    <options>Optimisation</options>
+                                                    <option>Agriculture</option>
+                                                    <option>Transport</option>
+                                                    <option>Optimisation</option>
 												</Form.Select>
 												<Form.Control.Feedback type="invalid">
 													{errors.category}

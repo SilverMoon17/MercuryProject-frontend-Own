@@ -5,7 +5,7 @@ import Home from "../pages/Home/Home";
 import Product from "../pages/Product/Product";
 import AppFooter from "../appFooter/AppFooter";
 import Login from "../pages/Login/Login";
-import PageCreating from "../pages/ProductCreating/ProductCreating";
+import ProductCreating from "../pages/ProductCreating/ProductCreating";
 import Register from "../pages/Register/Register";
 import Ideas from "../pages/Ideas/Ideas";
 import Store from "../pages/Store/Store";
@@ -33,7 +33,7 @@ function App() {
           <Route path="/product" element={<Product />}/>
           <Route path="/PageOfIdea" element={<PageOfIdea/>}/>
           <Route path="/IdeaCreating" element={<IdeaCreating/>}/>
-          <Route path="/pageCreating" element={<PageCreating/>}/>
+          <Route path="/productCreating" element={<ProductCreating/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/Panel" element={<Panel/>}/>
