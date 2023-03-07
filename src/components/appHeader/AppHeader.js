@@ -8,11 +8,30 @@ import AuthButtons from './AuthButtons';
 import logo from '../../resources/logo(white).svg';
 import './AppHeader.css';
 
+function logOut() {
+    if(localStorage.getItem("id") && localStorage.getItem("username") && localStorage.getItem("token"))
+    {
+        localStorage.removeItem("id")
+        localStorage.removeItem("username")
+        localStorage.removeItem("token")
+    }
+    if(sessionStorage.getItem("id") && sessionStorage.getItem("username") && sessionStorage.getItem("token"))
+    {
+        sessionStorage.removeItem("id")
+        sessionStorage.removeItem("username")
+        sessionStorage.removeItem("token")
+    }
+    window.location.reload()
+}
+
 function AppHeader()  {
 
     const auth = (localStorage.getItem("token") && localStorage.getItem("username")) || 
                 (sessionStorage.getItem("token") && sessionStorage.getItem("username")) ? 
-                <Link to="/" className="nav-link">{localStorage.getItem("username") || sessionStorage.getItem("username")}</Link>
+                <div className="d-flex">
+                    <Link to="/" className="nav-link">{localStorage.getItem("username") || sessionStorage.getItem("username")}</Link>
+                    <button onClick={() => {logOut()}} className="nav-link log-out">Log out</button>
+                </div>
                 :
                 <AuthButtons />
     
