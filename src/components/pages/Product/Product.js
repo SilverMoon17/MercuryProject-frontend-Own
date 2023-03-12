@@ -53,7 +53,7 @@ function Product() {
                         <h3 className="product-title">Engineer Backpack</h3>
                         <span className="product-price">34.99$</span>
                         <p className="quantity-text">Quantity:</p>
-                        <div className="quantity-block d-flex align-items-center">
+                        <div className=" d-flex align-items-center">
                             <Button 
                             style={{backgroundColor: "transparent", border: "none", padding:0}}
                             onClick={() => decrease()}
