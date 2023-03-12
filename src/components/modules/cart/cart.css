@@ -1,0 +1,28 @@
+.wrapper {
+   margin: 0 auto;
+   width: 400px;
+   height: 250px;
+   border: 1px solid gray;
+   border-radius: 6px;
+   font-size: medium;
+   margin-bottom: 10px;
+}
+.wrapper .cartImage {
+    width: 76px;
+    height: 120px;
+}
+.menu {
+    background-color: lightgrey;
+    margin: 10px 15px;
+    height: 500px;
+}
+.content {
+    margin: 10px 15px;
+    background-color: lightgrey;
+}
+.cartImage {
+    margin: 15px 0 0  0;
+    border-radius: 50%;
+    width: 125px;
+    height: 125px;
+}

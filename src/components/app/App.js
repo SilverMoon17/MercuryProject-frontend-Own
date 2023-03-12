@@ -17,6 +17,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import background from '../../resources/background.jpg';
 import PageOfIdea from "../pages/PageOfIdea/PageOfIdea";
 import Panel from "../pages/AdminPanel/Panel";
+import { Cart } from "../pages/cart";
+import { ProfilePage } from "../pages/profile";
 
 
 
@@ -37,6 +39,8 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/Panel" element={<Panel/>}/>
+          <Route path="/cart" element={<Cart/>}/>
+          <Route path="/profile" element={<ProfilePage/>}/>
         </Routes>
         <footer className="footer">
           <AppFooter/>
