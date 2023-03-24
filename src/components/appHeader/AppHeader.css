@@ -43,3 +43,8 @@
 .nav-link:hover {
     opacity: 0.7;
 }
+
+.log-out {
+    background-color: transparent;
+    border: none;
+}

@@ -2,16 +2,24 @@ import { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import {axiosInstance} from '../../../API/axios';
 
 import logo from '../../../resources/logo(black).svg'
 
 export default function Login() {
+
+    const [error, setError] = useState(false)
+    const [errorDescription, setErrorDescription] = useState('')
+
+    const navigate = useNavigate()
 
     const schema = yup.object().shape({
         email: yup.string().email('Invalid e-mail').required('E-mail is reuqired'),
@@ -27,10 +35,37 @@ export default function Login() {
                     </div>
                     <Formik
                         validationSchema={schema}
-                        onSubmit={console.log}
+                        onSubmit={async (values) => {
+                            let data = {
+                                "email": values.email,
+                                "password": values.password
+                            }
+                            let res = await axiosInstance.post('/auth/login', data)
+                                .catch((error) => {
+                                    console.log(error)
+                                    setError(true)
+                                    setErrorDescription(error.response.data.errors['Auth.InvalidCredentials'])
+                                })
+                            if (res && values.remember) {
+                                localStorage.setItem("token", res.data.token)
+                                localStorage.setItem("id", res.data.id)
+                                localStorage.setItem("username", res.data.username)
+                                axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`
+                                navigate('/')
+                                window.location.reload();
+                            } else if (res) {
+                                sessionStorage.setItem("token", res.data.token)
+                                sessionStorage.setItem("id", res.data.id)
+                                sessionStorage.setItem("username", res.data.username)
+                                axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem("token")}`
+                                navigate('/')
+                                window.location.reload();
+                            }
+                        }}
                         initialValues={{
                             email: '',
-                            password: ''
+                            password: '',
+                            remember: false
                         }}
                     >
                         {({
@@ -60,9 +95,6 @@ export default function Login() {
                                     <Form.Control.Feedback type="invalid">
                                         {errors.email}
                                     </Form.Control.Feedback>
-                                    {/* <Form.Control.Feedback>
-                                        All is good
-                                    </Form.Control.Feedback> */}
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -80,10 +112,11 @@ export default function Login() {
                                         {errors.password}
                                     </Form.Control.Feedback>
                                 </Form.Group>
-                                <Form.Group className="mb-3 d-flex justify-content-between" controlId="formBasicCheckbox">
+                                <Form.Group className="mb-3 d-flex justify-content-between" controlId="remember">
                                     <Form.Check type="checkbox" label="Remember me" />
                                     <Link to="/register">Not registered yet? Sign up</Link>
                                 </Form.Group>
+                                {error && <Alert variant="danger">{errorDescription}</Alert>}
                                 <Button variant="primary" type="submit" size='lg'>
                                     Login
                                 </Button>

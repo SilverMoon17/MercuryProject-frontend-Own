@@ -1,0 +1,45 @@
+.merch-container
+{
+    top: 47%;
+    position: absolute !important;
+    z-index: 3;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    
+}
+
+.merch-col {
+    width: 67.7%;
+    height: 53.7%;
+    background: #FFF;
+    box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 80px;
+}
+
+
+h3 {
+    padding-top: 3%;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+
+.quantity {
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 41px;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+.quantity-text {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 41px;
+    margin: 0;
+}
+.quantity-block {
+    margin-top: 0.1%;
+    margin-left: 44%;
+}
+

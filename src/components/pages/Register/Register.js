@@ -1,7 +1,9 @@
 import { Container } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
@@ -9,16 +11,23 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { axiosInstance } from '../../../API/axios';
 
 import logo from '../../../resources/logo(black).svg'
 
 export default function Register() {
+
+    const navigate = useNavigate();
+
+    const [error, setError] = useState(false)
+    const [errorDescription, setErrorDescription] = useState('')
+
     const signUpSchema = yup.object().shape({
         username: yup.string().min(5, "Minimal 5 symbols").max(25).required('Username field is requierd'),
         email: yup.string().email('Invalid e-mail').required('E-mail is reuqired'),
         firstName: yup.string().required('First name is required'),
         lastName: yup.string().required('Last name is required'),
-        password: yup.string().min(8, 'Too short (8-20 symbols)').max(20, 'Too long (8-20 symbols)').required('Password is required').matches(/^(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, 'Must Contain at least 8 Characters, One Uppercase, One Lowercase, One Number'),
+        password: yup.string().min(8, 'Too short (8-30 symbols)').max(30, 'Too long (8-30 symbols)').required('Password is required').matches(/^(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])/, 'Must Contain at least 8 Characters, One Uppercase, One Lowercase, One Number'),
         confirmedPassword: yup.string()
             .oneOf([yup.ref('password'), null], 'Passwords must match').required()
     });
@@ -32,7 +41,25 @@ export default function Register() {
                     </div>
                     <Formik
                         validationSchema={signUpSchema}
-                        onSubmit={console.log}
+                        onSubmit={async (values) => {
+                            let data = {
+                                "username": values.username,
+                                "firstName": values.firstName,
+                                "lastName": values.lastName,
+                                "email": values.email,
+                                "password": values.password,
+                                "confirmedPassword": values.confirmedPassword
+                            }
+                            await axiosInstance.post('/auth/register', data)
+                                .then(() => {
+                                    setError(false);
+                                    navigate('/login');
+                                })
+                                .catch((error) => {
+                                    setErrorDescription(error.response.data.title);
+                                    setError(true)
+                                });
+                        }}
                         initialValues={{
                             username: '',
                             email: '',
@@ -141,6 +168,7 @@ export default function Register() {
                                         {errors.confirmedPassword}
                                     </Form.Control.Feedback>
                                 </Form.Group>
+                                {error && <Alert variant="danger">{errorDescription}</Alert>}
                                 <Button variant="primary" type="submit" size='lg' style={{ width: '100%' }}>
                                     Register
                                 </Button>

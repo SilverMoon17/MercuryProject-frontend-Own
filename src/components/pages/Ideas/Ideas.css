@@ -1,0 +1,24 @@
+.button-absolute {
+    position: fixed;
+    bottom: 30px;
+    right: 50px;
+    background-color: #269200 !important;
+    color: #fff;
+    border-radius: 5px !important;
+    transition: opacity 1s ease-out;
+}
+.button-absolute:hover {
+    color: #fff;
+}
+
+.hidden {
+    transition: opacity 0.3s ease-out;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+.visible {
+    transition: opacity 0.3s ease-in;
+    opacity: 1;
+    height: auto;
+}

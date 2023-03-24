@@ -13,7 +13,7 @@ export default function Idea() {
         setProgress((currVal * 100) / maxVal);
     }
 
-    useEffect(() => { calcProgress(currVal, 10000) })
+    useEffect(() => { calcProgress(5000, 10000) })
 
     return (
         <>
@@ -35,7 +35,7 @@ export default function Idea() {
                         </div>
                     </div>
                     <div className="d-flex justify-content-end" style={{ marginRight: "66px" }}>
-                        <Button>LEARN MORE</Button>
+                        <Button href='/PageOfIdea'>LEARN MORE</Button>
                     </div>
                 </div>
             </div>
