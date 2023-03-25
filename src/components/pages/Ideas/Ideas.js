@@ -20,14 +20,11 @@ export default function Ideas() {
         } else {
             setDisabled("hidden")
         }
-        console.log(position);
-        console.log(isDisabled);
         setScrollPosition(position);
     };
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
-        console.log(scrollPosition);
 
         return () => {
             window.removeEventListener('scroll', handleScroll);

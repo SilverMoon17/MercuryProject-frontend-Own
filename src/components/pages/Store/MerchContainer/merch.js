@@ -5,16 +5,27 @@ import MerchCard from './MerchCard';
 import minusButton from "../../../../resources/BM.svg"
 import plusButton from "../../../../resources/BP.svg"
 import Button from 'react-bootstrap/Button';
+import {axiosInstance} from '../../../../API/axios'
 
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import './merch.css'
+import ErrorModal from "../../../errorModal/ErrorModal";
+import Spinner from "../../../spinner/Spinner";
 
 
 function Merch() {
 
     const [quantity, setQuantity] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [productList, setProductList] = useState([]);
+
+    useEffect(() => {
+          fetchData();
+    }, []);
     let minusDisabled = false;
     let plusDisabled = false;
 
@@ -36,32 +47,54 @@ function Merch() {
     function decrease(){
         setQuantity(quantity-1)
     }
-        
+
+    async function fetchData() {
+        await axiosInstance.get("/getAllProducts")
+        .then((data) => {
+            setProductList(data.data);
+            setLoading(false)
+        })
+        .catch((error) => {
+            setErrorMessage(error.message)
+            setError(true);
+        }) 
+      }
+
+    function renderList(arr) {
+        const items = arr.map(product => {
+            const {name, category, id, description, iconUrl, price, stock } = product
+            return (
+                <MerchCard 
+                    name = {name} 
+                    category = {category} 
+                    key = {id.value} 
+                    description={description} 
+                    iconUrl = {iconUrl}
+                    price = {price}
+                    stock = {stock}
+                />
+            )
+        })
+        return {items}
+    }
+
+    const {items} = renderList(productList);
+    const errorModal = error ? <ErrorModal message={errorMessage} error={error} setError = {setError}/> : null;
+    const spinner = loading ? <Spinner/> : null;
+    const content = !(loading || error) ? items : null;
+
 
         return(
-
             <Container className="merch-container">
                 <Row className="justify-content-md-center">
                     <Col xs={12} md={10} className="merch-col text-center">
                         <h3>BUY MERCH = SUPPORT US</h3>
-
-                    
-                        <MerchCard/>
-                        <MerchCard/>
-                        <MerchCard/>
-
-                        
-                        <MerchCard/>
-                        <MerchCard/>
-                        <MerchCard/>
-
-                        
-
-
-                    </Col>
-                </Row>
-                
-                <div className="quantity-block d-flex align-items-center">
+                        <ul className="merchCard-container">
+                            {errorModal}
+                            {spinner}
+                            {content}
+                        </ul>
+                        <div className="quantity-block d-flex align-items-center mb-5">
                             <Button 
                             style={{backgroundColor: "transparent", border: "none", padding:0}}
                             onClick={() => decrease()}
@@ -76,6 +109,10 @@ function Merch() {
                                 <img src={plusButton} alt=""/>
                             </Button>
                         </div>
+                    </Col>
+                </Row>
+                
+                
             </Container>
 
             

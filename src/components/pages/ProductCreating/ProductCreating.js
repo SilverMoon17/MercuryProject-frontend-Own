@@ -5,16 +5,18 @@ import Image from 'react-bootstrap/Image';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { useMemo } from 'react';
 import CloseButton from 'react-bootstrap/CloseButton';
-import Button from 'react-bootstrap/Button';
 import { Container } from 'react-bootstrap';
 import { Row } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import { axiosInstance } from '../../../API/axios';
 
 import './ProductCreating.css';
 import defaultImage from '../../../resources/default_image.png';
 import logo from "../../../resources/logo(black).svg";
+import ErrorModal from '../../errorModal/ErrorModal';
+import SuccessModal from '../../successModal/SuccessModal';
 
 const baseStyle = {
 	flex: 1,
@@ -46,6 +48,9 @@ const rejectStyle = {
 
 export default function ProductCreating(props) {
 	const [files, setFiles] = useState([]);
+	const [error, setError] = useState(false);
+	const [showModal, setShowModal] = useState(false);
+	const [errorMessage, setErrorMessage] = useState('');
 	const {
 		getRootProps,
 		isFocused,
@@ -104,31 +109,59 @@ export default function ProductCreating(props) {
 	const productCreatingSchema = yup.object().shape({
 		title: yup.string().required(),
 		description: yup.string().required(),
+		iconUrl: yup.string(),
 		price: yup.number().typeError("You must specify a number").min(0.01, "Must be greater then 0.01").required("Price field is required"),
 		stockLevel: yup.number().typeError("You must specify a number").integer("Stock level must be integer").min(1, "Must be greater then 0").required("Stock level is required"),
 		category: yup.string().notOneOf(['Choose category'], 'You must choose category')
 	});
 
+	const onSubmit = async (values) => {
+		let data = {
+			"name": values.title,
+			"description": values.description,
+			"price": values.price,
+			"stock": values.stockLevel,
+			"category": values.category,
+			"iconUrl": values.iconUrl
+		}
+		await axiosInstance.post('/admin/createProduct', data)
+			.then(() => {
+				setError(false);
+				setShowModal(true);	
+			})
+			.catch((error) => {
+				setErrorMessage(error.response.data.title ? error.response.data.title : error.message);
+				setError(true)
+			});
+	}
+
 	return (
 		<Container>
 			<Row>
 				<Col md={12}>
+					{error && <ErrorModal message={errorMessage} error = {error} setError = {setError}/>}
+					<SuccessModal showModal = {showModal} setShowModal = {setShowModal}/>
 					<img src={logo} alt="logo" className='logo-product-creating' width={306} />
 					<div className="product-creating-block d-flex justify-content-between">
 						<div className="product-image-upload">
 							<Image fluid rounded width={400} src={files[0] ? files[0].preview : defaultImage} alt={files[0] ? files[0].name : 'defaultImage'} className="main-img" />
 							<aside className="thumbs-container">{thumbs}</aside>
+							<Form.Label style={{'color': 'red'}}>Temporarily unavailable</Form.Label>
+							<br />
 							<Form.Label>Upload your images</Form.Label>
-							<div {...getRootProps({ style })}>
+
+							{/* <div {...getRootProps({ style })}> */}
+							<div >
 								<p className="">Drag 'n' drop zone</p>
 							</div>
 						</div>
 						<Formik
 							validationSchema={productCreatingSchema}
-							onSubmit={console.log}
+							onSubmit={(values) => {onSubmit(values, files);}}
 							initialValues={{
 								title: '',
 								description: '',
+								iconUrl: '',
 								price: 0,
 								stockLevel: 0,
 								category: 'Choose category',
@@ -172,6 +205,22 @@ export default function ProductCreating(props) {
 											{errors.description}
 										</Form.Control.Feedback>
 									</InputGroup>
+									<InputGroup className="mt-3">
+										<InputGroup.Text id="basic-addon1">iconUrl</InputGroup.Text>
+										<Form.Control
+											placeholder="Product iconUrl"
+											aria-label="Product iconUrl"
+											aria-describedby="basic-addon1"
+											name="iconUrl"
+											value={values.iconUrl}
+											onChange={handleChange}
+											isValid={touched.iconUrl && !errors.iconUrl}
+											isInvalid={!!errors.iconUrl}
+										/>
+										<Form.Control.Feedback type="invalid">
+											{errors.iconUrl}
+										</Form.Control.Feedback>
+									</InputGroup>
 									<Row>
 										<div className="product-creating-inputs d-flex align-items-flex-start mt-3">
 											<InputGroup>
@@ -210,6 +259,7 @@ export default function ProductCreating(props) {
 													<option>Choose category</option>
 													<option>T-Shirt</option>
 													<option>Mug</option>
+													<option>Backpack</option>
 												</Form.Select>
 												<Form.Control.Feedback type="invalid">
 													{errors.category}

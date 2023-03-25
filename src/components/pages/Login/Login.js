@@ -40,11 +40,19 @@ export default function Login() {
                                 "email": values.email,
                                 "password": values.password
                             }
+                            console.log('data: ', data);
                             let res = await axiosInstance.post('/auth/login', data)
                                 .catch((error) => {
-                                    console.log(error)
+                                    console.log('error: ', error);
                                     setError(true)
-                                    setErrorDescription(error.response.data.errors['Auth.InvalidCredentials'])
+                                    if (error.response) {
+                                        let firstError = Object.values(error.response.data.errors)[0];
+                                        setErrorDescription(firstError[0])
+                                    } else {
+                                        setErrorDescription(error.message)
+                                    }
+                                    
+                                   
                                 })
                             if (res && values.remember) {
                                 localStorage.setItem("token", res.data.token)
