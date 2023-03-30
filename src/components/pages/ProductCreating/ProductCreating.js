@@ -124,12 +124,13 @@ export default function ProductCreating(props) {
 			"category": values.category,
 			"iconUrl": values.iconUrl
 		}
-		await axiosInstance.post('/admin/createProduct', data)
+		await axiosInstance.post('/admin/product', data)
 			.then(() => {
 				setError(false);
 				setShowModal(true);	
 			})
 			.catch((error) => {
+				console.log(error);
 				setErrorMessage(error.response.data.title ? error.response.data.title : error.message);
 				setError(true)
 			});
@@ -260,6 +261,8 @@ export default function ProductCreating(props) {
 													<option>T-Shirt</option>
 													<option>Mug</option>
 													<option>Backpack</option>
+													<option>Hoodie</option>
+													<option>Other</option>
 												</Form.Select>
 												<Form.Control.Feedback type="invalid">
 													{errors.category}

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import '../../modules/cart/cart.css';
 import Row from 'react-bootstrap/Row';
@@ -8,10 +7,7 @@ import Image from 'react-bootstrap/Image';
 import imageUrl from '../../../resources/avatar.jpg'
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { useMemo } from 'react';
-import CloseButton from 'react-bootstrap/CloseButton';
 import { Formik } from 'formik';
-import * as yup from 'yup';
 export const ProfilePage = () => {
     const pickFile = () => {
         document.getElementById("filePicker")?.click()

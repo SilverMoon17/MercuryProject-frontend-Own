@@ -2,38 +2,53 @@ import Container from 'react-bootstrap/Container';
 import {Link} from 'react-router-dom';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AuthButtons from './AuthButtons';
 
 
 import logo from '../../resources/logo(white).svg';
 import './AppHeader.css';
 
-function logOut() {
-    if(localStorage.getItem("id") && localStorage.getItem("username") && localStorage.getItem("token"))
-    {
-        localStorage.removeItem("id")
-        localStorage.removeItem("username")
-        localStorage.removeItem("token")
-    }
-    if(sessionStorage.getItem("id") && sessionStorage.getItem("username") && sessionStorage.getItem("token"))
-    {
-        sessionStorage.removeItem("id")
-        sessionStorage.removeItem("username")
-        sessionStorage.removeItem("token")
-    }
-    window.location.reload()
-}
+
 
 function AppHeader()  {
+    
+    const [isLogged, setIsLogged] = useState(false);
+    const authState = useSelector(state => state.isLogged)
+    const role = useSelector(state => state.Role)
+    const dispatch = useDispatch();
 
-    const auth = (localStorage.getItem("token") && localStorage.getItem("username")) || 
-                (sessionStorage.getItem("token") && sessionStorage.getItem("username")) ? 
+    useEffect(() => {
+        setIsLogged(authState)
+    }, [authState])
+
+    function logOut() {
+        dispatch({type: "AuthState", payload: false})
+        dispatch({type: "RoleState", payload: ""})
+        dispatch({type: "IdState", payload: ""})
+        if(localStorage.getItem("id") && localStorage.getItem("username") && localStorage.getItem("token"))
+        {
+            localStorage.removeItem("id")
+            localStorage.removeItem("username")
+            localStorage.removeItem("token")
+        }
+        if(sessionStorage.getItem("id") && sessionStorage.getItem("username") && sessionStorage.getItem("token"))
+        {
+            sessionStorage.removeItem("id")
+            sessionStorage.removeItem("username")
+            sessionStorage.removeItem("token")
+        }
+        window.location.reload();
+    }
+
+    const auth = localStorage.getItem("token") ||sessionStorage.getItem("token") ? 
                 <div className="d-flex">
-                    <Link to="/" className="nav-link">{localStorage.getItem("username") || sessionStorage.getItem("username")}</Link>
+                    <Link to={role === "Admin" ? '/adminPanel' : '/'} className="nav-link">{localStorage.getItem("username") || sessionStorage.getItem("username")}</Link>
                     <button onClick={() => {logOut()}} className="nav-link log-out">Log out</button>
                 </div>
                 :
-                <AuthButtons />
+                <AuthButtons/>
     
 
     return (

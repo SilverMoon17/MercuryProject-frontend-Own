@@ -11,10 +11,13 @@
     margin-bottom: 0;
 }
 .product-block {
-    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .product-info-block {
-    margin-left: 24px;
+    display: flex;
+    flex-direction: column;
 }
 .product-title {
     font-weight: 700;
@@ -27,6 +30,10 @@
     font-size: 36px;
     line-height: 42px;
     color: #269200;
+}
+
+.product-category {
+    width: 30% !important;
 }
 
 .quantity {

@@ -21,3 +21,32 @@
     left: 40%
 }
 
+.delete-icon {
+    position: absolute;
+    z-index: 1000;
+    top: 0.5%;
+    right: 0;
+    font-size: 1.5rem;
+    color: rgb(40, 40, 40);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+}
+
+.delete-icon:before,
+.delete-icon:after {
+    position: absolute;
+    content: '';
+    height: 1.5rem;
+    width: 0.15rem;
+    background-color: currentColor;
+}
+
+.delete-icon:before {
+    transform: rotate(45deg);
+}
+
+.delete-icon:after {
+    transform: rotate(-45deg);
+}
+

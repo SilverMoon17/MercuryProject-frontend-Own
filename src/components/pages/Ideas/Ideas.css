@@ -16,6 +16,7 @@
     opacity: 0;
     height: 0;
     overflow: hidden;
+    /* display: none; */
 }
 .visible {
     transition: opacity 0.3s ease-in;

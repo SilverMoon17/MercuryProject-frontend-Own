@@ -67,6 +67,7 @@ function Merch() {
                 <MerchCard 
                     name = {name} 
                     category = {category} 
+                    id = {id.value}
                     key = {id.value} 
                     description={description} 
                     iconUrl = {iconUrl}

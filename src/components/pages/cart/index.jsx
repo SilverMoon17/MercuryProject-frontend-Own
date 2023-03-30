@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import '../../modules/cart/cart.css';
 import Image from 'react-bootstrap/Image';
