@@ -116,7 +116,7 @@ export default function Panel() {
                 <Button href="./IdeaCreating" variant='secondary'
                     style={{ marginLeft: "4%" }}>Submit Idea</Button>
 
-                <Button href="" variant='secondary'
+                <Button href="/ideas/review" variant='secondary'
                     style={{ marginLeft: "4%" }}>Check Submited Ideas</Button>
 
                 <Button href="" variant='secondary'

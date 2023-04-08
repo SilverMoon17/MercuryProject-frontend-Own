@@ -16,7 +16,7 @@ function AppHeader()  {
     
     const [isLogged, setIsLogged] = useState(false);
     const authState = useSelector(state => state.isLogged)
-    const role = useSelector(state => state.Role)
+    const role = localStorage.getItem("role") || sessionStorage.getItem("role")
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -62,7 +62,7 @@ function AppHeader()  {
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                     <Link to="/projects" className="nav-link">Projects</Link>
-                    <Link to="/ideas" className="nav-link">Ideas</Link>
+                    <Link to="/ideas/approved" className="nav-link">Ideas</Link>
                     <Link to="/store" className="nav-link">Store</Link>
                 </Nav>
                 <Nav className="mr-auto">

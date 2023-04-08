@@ -81,6 +81,15 @@
     margin-bottom: 15px;
 }
 
+.idea-block-info {
+    margin-left: 50px;
+    width: 100%;
+}
+
+.idea-image {
+    width: 25%;
+}
+
 .idea-description {
     font-weight: 400;
     font-size: 20px;

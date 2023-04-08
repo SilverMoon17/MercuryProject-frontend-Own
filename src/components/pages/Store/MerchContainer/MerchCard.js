@@ -40,7 +40,7 @@ function ConfirmationModal({ show, setShow, id }) {
                     <Modal.Title>Are you sure?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Click Ok if you really want to uninstall this product
+                    Click Ok if you really want to remove this product
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="danger" onClick={handleClose}>

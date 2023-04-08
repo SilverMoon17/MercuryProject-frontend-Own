@@ -17,6 +17,20 @@
     box-shadow: 0px 4px 5px 3px rgba(0, 0, 0, 0.1);
 }
 
+.idea-page-title {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 34px;
+}
+
+.idea-description-title {
+    margin: 0;
+    margin-bottom: 50px;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 34px;
+}
+
 h2 {
     margin-top: 2%;
 }

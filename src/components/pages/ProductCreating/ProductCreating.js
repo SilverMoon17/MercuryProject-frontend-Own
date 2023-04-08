@@ -124,7 +124,7 @@ export default function ProductCreating(props) {
 			"category": values.category,
 			"iconUrl": values.iconUrl
 		}
-		await axiosInstance.post('/admin/product', data)
+		await axiosInstance.post('/product', data)
 			.then(() => {
 				setError(false);
 				setShowModal(true);	

@@ -2,40 +2,55 @@ import { useState, useEffect } from 'react';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
+import { Link } from "react-router-dom";
+
 
 import './Idea.css';
 import img from "../../../resources/idea_img1.png";
 
-export default function Idea() {
+export default function Idea(
+    {id,
+    title,
+    description,
+    status,
+    goal,
+    collected,
+    category, 
+    imageUrls,}
+) {
     const [progress, setProgress] = useState(0);
-    const [currVal, setCurrVal] = useState(0);
-    function calcProgress(currVal, maxVal) {
-        setProgress((currVal * 100) / maxVal);
+    const [validDescription, setValidDescription] = useState(description);
+
+    useEffect(() => {
+        if (description.length > 350) {
+            setValidDescription(description.slice(0, 350) + '...');
+        }
+    }, [description])
+
+    function calcProgress(collected, goal) {
+        setProgress((collected * 100) / goal);
     }
 
-    useEffect(() => { calcProgress(5000, 10000) })
+    useEffect(() => { calcProgress(collected, goal) })
 
     return (
         <>
             <div className="idea-block d-flex mb-5">
-                <Image rounded src={img} style={{ marginLeft: "10px" }} />
+                <Image className='idea-image' rounded src={imageUrls ? imageUrls[0] : img} style={{ marginLeft: "10px" }} />
                 <div className="idea-block-info">
-                    <h3 className="idea-title">Hipster ipsum tattooed brunch I'm</h3>
-                    <label className='category'>IT</label>
-                    <p className="idea-description">Hipster ipsum tattooed brunch I'm baby. Microdosing taxidermy farm-to-table
-                        chicharrones pour-over pok truck polaroid pabst vibecession. Tbh coffee haven't hammock microdosing mumblecore
-                        flannel trade enamel. Hoodie taiyaki church-key hashtag yuccie forage tilde semiotics deep. Shaman paleo it
-                        juice bottle next poutine williamsburg. Meggings vaporware everyday fund.</p>
+                    <h3 className="idea-title">{title}</h3>
+                    <label className='category'>{category}</label>
+                    <p className="idea-description">{validDescription}</p>
                     <div className="collected d-block" style={{ width: '40%' }}>
                         <span className='collected-text'>Collected</span>
                         <ProgressBar now={progress} />
                         <div className="d-flex justify-content-between">
-                            <span>{currVal}$</span>
-                            <span>10000$</span>
+                            <span>{collected}$</span>
+                            <span>{goal}$</span>
                         </div>
                     </div>
                     <div className="d-flex justify-content-end" style={{ marginRight: "66px" }}>
-                        <Button href='/PageOfIdea'>LEARN MORE</Button>
+                        <Link to={`/idea/${id}`}><Button>LEARN MORE</Button></Link>
                     </div>
                 </div>
             </div>

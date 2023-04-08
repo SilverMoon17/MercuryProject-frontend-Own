@@ -24,7 +24,10 @@ function Merch() {
     const [productList, setProductList] = useState([]);
 
     useEffect(() => {
-          fetchData();
+        fetchData();
+        const {items} = renderList(productList);
+        console.log('product items: ', items);
+
     }, []);
     let minusDisabled = false;
     let plusDisabled = false;
@@ -48,8 +51,8 @@ function Merch() {
         setQuantity(quantity-1)
     }
 
-    async function fetchData() {
-        await axiosInstance.get("/getAllProducts")
+    function fetchData() {
+        axiosInstance.get("/product/getAllProducts")
         .then((data) => {
             setProductList(data.data);
             setLoading(false)
@@ -89,7 +92,7 @@ function Merch() {
             <Container className="merch-container">
                 <Row className="justify-content-md-center">
                     <Col xs={12} md={10} className="merch-col text-center">
-                        <h3>BUY MERCH = SUPPORT US</h3>
+                        <h3 className="merch-page-title">BUY MERCH = SUPPORT US</h3>
                         <ul className="merchCard-container">
                             {errorModal}
                             {spinner}
