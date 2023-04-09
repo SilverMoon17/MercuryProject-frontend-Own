@@ -2,16 +2,21 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { Alert } from 'react-bootstrap';
 
-export default function SuccessModal({showModal, setShowModal}) {
-  const handleClose = () => setShowModal(false);
+export default function SuccessModal({showModal, setShowModal, message, url}) {
+  const handleClose = () => {
+    setShowModal(false);
+    if (url) {
+      window.location.replace(url);
+    }
+  };
 
   return (
     <>
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Error</Modal.Title>
+          <Modal.Title>Success</Modal.Title>
         </Modal.Header>
-        <Modal.Body><Alert variant="success">Product added successfully</Alert></Modal.Body>
+        <Modal.Body><Alert variant="success">{message}</Alert></Modal.Body>
         <Modal.Footer>
           <Button variant="success" onClick={handleClose}>
             Close

@@ -24,8 +24,9 @@ export default function Ideas(
     const [scrollPosition, setScrollPosition] = useState(0);
     const [isDisabled, setDisabled] = useState("hidden");
     const handleScroll = () => {
-        const position = window.pageYOffset;      
-        if(position > 500 && position < 1300) {
+        const position = window.pageYOffset; 
+        const bodyHeight = document.body.scrollHeight;   
+        if(position > 500 && position < bodyHeight - 1000) {
             setDisabled("visible")
         } else {
             setDisabled("hidden")
@@ -35,7 +36,6 @@ export default function Ideas(
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });
-        const {items} = renderList(ideasList);
 
         return () => {
             window.removeEventListener('scroll', handleScroll);
@@ -65,11 +65,11 @@ export default function Ideas(
     const {items} = renderList(ideasList);
     const errorModal = error ? <ErrorModal message={errorMessage} error={error} setError = {setError}/> : null;
     const spinner = loading ? <Spinner/> : null;
-    const content = !(loading || error) ? items : null;
+    const content = !(loading || error) ? items.length === 0 ? <h3 className="idea-title">List is empty</h3> : items : null;
 
     return (
         <>
-            <Link to='/ideaCreating' className={isDisabled}><Button variant="custom-button button-absolute" size="lg" style={{color: "#fff"}}>Create new idea</Button></Link>
+            <Link to='/ideaCreating' className={isDisabled}><Button variant="custom-button button-absolute" size="lg" style={{color: "#fff", zIndex: "99"}}>Create new idea</Button></Link>
             <Container>
                 <Row>
                     <Col md={4} sm={8} className="ideas-logo-block d-flex align-items-center">

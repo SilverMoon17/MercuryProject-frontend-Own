@@ -15,6 +15,7 @@ export default function ReviewIdeas() {
         setLoading(false)
       })
       .catch((error) => {
+        // console.log(error);
         setErrorMessage(error.message)
         setError(true);
       })
@@ -22,15 +23,10 @@ export default function ReviewIdeas() {
 
     useEffect(() => {
       getAllReviewIdeas();
-      console.log(ideasList.length === 0);
-      console.log(ideasList.length);
     }, [])
 
   return(
     <>
-      {ideasList.length === 0 ? 
-      null
-      :
       <Ideas 
       ideasList={ideasList} 
       loading={loading} 
@@ -39,8 +35,7 @@ export default function ReviewIdeas() {
       setError={setError}
       errorMessage={errorMessage}
       setErrorMessage={setErrorMessage} 
-    /> 
-      }
+    />
     </>
   )
 }

@@ -120,8 +120,7 @@ export default function IdeaCreating(props) {
 				setShowModal(true);
 			})
 			.catch((error) => {
-				// console.log(error);
-				setErrorMessage(error.response.data.title ? error.response.data.title : error.message);
+				setErrorMessage(error.message);
 				setError(true)
 			})
 	}
@@ -151,7 +150,7 @@ export default function IdeaCreating(props) {
 			<Row>
 				<Col md={12}>
 					{error && <ErrorModal message={errorMessage} error = {error} setError = {setError}/>}
-					<SuccessModal showModal = {showModal} setShowModal = {setShowModal}/>
+					<SuccessModal showModal = {showModal} setShowModal = {setShowModal} message="Idea created successfully!"/>
 					<img src={logo} alt="logo" className='logo-idea-creating' width={306} />
 					<div className="idea-creating-block d-flex justify-content-between">
 						<div className="idea-image-upload">

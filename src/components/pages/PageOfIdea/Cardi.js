@@ -6,12 +6,14 @@ import {axiosInstance} from '../../../API/axios'
 
 
 import ErrorModal from '../../errorModal/ErrorModal';
+import SuccessModal from '../../successModal/SuccessModal';
 import Spinner from '../../spinner/Spinner';
 import "./Cardi.css"
 
 export default function Cardi({id}) {
     const [index, setIndex] = useState(0);
     const [idea, setIdea] = useState({});
+    const [showModal, setShowModal] = useState(false)
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -22,20 +24,23 @@ export default function Cardi({id}) {
     const role = localStorage.getItem("role") || sessionStorage.getItem("role");
 
     const handleScroll = () => {
-        const position = window.pageYOffset;      
-        if(position > 500 && position < 1300 && role === "Admin" && idea.status === 0) {
+        const position = window.pageYOffset;  
+        const bodyHeight = document.body.scrollHeight;    
+        if(position > 500 && position < bodyHeight - 1000 && role === "Admin" && idea.status === 0) {
             setDisabled("visible")
         } else {
             setDisabled("hidden")
         }
         setScrollPosition(position);
     };
-
-
     const approveIdea = () => {
         axiosInstance.put(`/idea/approve/${id}`)
+            .then(() => {
+                setShowModal(true)
+            })
             .catch((error) => {
-                console.log(error);
+                setErrorMessage(error.response.data.title ? error.response.data.title : error.message)
+                setError(true);
             })
     }
 
@@ -92,9 +97,14 @@ export default function Cardi({id}) {
                 size="lg" style={{color: "#fff"}} 
                 className={isDisabled}
                 onClick={approveIdea}>Approve</Button>
+				<SuccessModal 
+                showModal = {showModal} 
+                setShowModal = {setShowModal} 
+                message="Idea approved successfully!"
+                url="/ideas/review"/>
                <Row className='d-flex justify-content-center'>
                 <Col md={5}>
-                    <Carousel activeIndex={index} onSelect={handleSelect} variant='dark'>
+                    <Carousel activeIndex={index} onSelect={handleSelect} variant='dark' className='mt-5'>
                         {images}
                     </Carousel>
                 </Col>

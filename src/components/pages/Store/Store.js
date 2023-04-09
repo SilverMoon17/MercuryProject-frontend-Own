@@ -9,14 +9,16 @@ function Store() {
     const [scrollPosition, setScrollPosition] = useState(0);
     const [isDisabled, setDisabled] = useState("hidden");
     const handleScroll = () => {
-        const position = window.pageYOffset;      
-        if(position > 500 && position < 1300 && role === "Admin") {
+        const position = window.pageYOffset;   
+        const bodyHeight = document.body.scrollHeight;   
+        if(position > 500 && position < position < bodyHeight - 1000 && role === "Admin") {
             setDisabled("visible")
         } else {
             setDisabled("hidden")
         }
         setScrollPosition(position);
     };
+    
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll, { passive: true });

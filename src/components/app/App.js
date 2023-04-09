@@ -13,7 +13,8 @@ import IdeaCreating from "../pages/IdeaCreate/IdeaCreating";
 import ReviewIdeas from "../pages/ReviewIdeas/ReviewIdeas";
 import PageOfIdea from "../pages/PageOfIdea/PageOfIdea";
 import Panel from "../pages/AdminPanel/Panel";
-import ApprovedIdeas from "../pages/ApprovedIdeas/ApprovedIdeas"
+import ApprovedIdeas from "../pages/ApprovedIdeas/ApprovedIdeas";
+import Projects from "../pages/Projects/Projects";
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -31,7 +32,7 @@ function App() {
         <img src={background} alt="" className="bg-img" />
         <Routes>
           <Route path="/" element={<Home />}/>
-          <Route path="/projects" element={<h1>Projects</h1>}/>
+          <Route path="/projects" element={<Projects/>}/>
           <Route path="/ideas/approved" element={<ApprovedIdeas/>}/>
           <Route path="/ideas/review" element={<ReviewIdeas/>}/>
           <Route path="/idea/:id" element={<PageOfIdea/>}/>
