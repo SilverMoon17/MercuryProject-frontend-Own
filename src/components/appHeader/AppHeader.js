@@ -8,6 +8,7 @@ import AuthButtons from './AuthButtons';
 
 
 import logo from '../../resources/logo(white).svg';
+import cart_icon from '../../resources/cart-fill.svg'
 import './AppHeader.css';
 
 
@@ -39,12 +40,13 @@ function AppHeader()  {
             sessionStorage.removeItem("username")
             sessionStorage.removeItem("token")
         }
-        window.location.reload();
+        window.location.replace("/");
     }
 
     const auth = localStorage.getItem("token") ||sessionStorage.getItem("token") ? 
-                <div className="d-flex">
-                    <Link to={role === "Admin" ? '/adminPanel' : '/'} className="nav-link">{localStorage.getItem("username") || sessionStorage.getItem("username")}</Link>
+                <div className="d-flex align-items-center">
+                    <Link to="/cart"><img src={cart_icon} alt="cart_icon" /></Link>
+                    <Link to={role === "Admin" ? '/adminPanel' : '/profile'} className="nav-link">{localStorage.getItem("username") || sessionStorage.getItem("username")}</Link>
                     <button onClick={() => {logOut()}} className="nav-link log-out">Log out</button>
                 </div>
                 :

@@ -26,7 +26,9 @@ export default function Ideas(
     const handleScroll = () => {
         const position = window.pageYOffset; 
         const bodyHeight = document.body.scrollHeight;   
-        if(position > 500 && position < bodyHeight - 1000) {
+        console.log(`bodyHeight-700 ${bodyHeight-700}`, `Position ${position}`);
+        console.log(position > 450 && position < bodyHeight - 450);
+        if(position > 450 && position < bodyHeight - 450) {
             setDisabled("visible")
         } else {
             setDisabled("hidden")

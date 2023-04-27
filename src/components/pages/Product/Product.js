@@ -5,7 +5,7 @@ import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import ErrorModal from "../../errorModal/ErrorModal";
 import Spinner from "../../spinner/Spinner";
-
+import SuccessModal from "../../successModal/SuccessModal";
 import logo from "../../../resources/logo(black).svg"
 import defaultImage from "../../../resources/default_image.png"
 import minusButton from "../../../resources/button(minus).svg"
@@ -31,6 +31,7 @@ function Product() {
     })
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+	const [showModal, setShowModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
 
     let minusDisabled = false;
@@ -66,6 +67,22 @@ function Product() {
 
     function decrease() {
         setQuantity(quantity - 1)
+    }
+
+    const addProductInCart = () => {
+        const data = {
+            "productId" : id,
+            "quantity" : quantity
+        }
+        axiosInstance.post(`/cartItem`, data)
+        .then(() => {
+            setShowModal(true)
+        })
+            .catch((error) => {
+                console.log(error)
+                setErrorMessage(error.response.data.title ? error.response.data.title : error.message)
+                setError(true);
+            })
     }
 
     // const { name, description, category, price, stock, iconUrl } = productInfo;
@@ -109,7 +126,7 @@ function Product() {
                                 }}>
                                 <span className="button-text">Buy</span>
                             </Button>
-                            <Button variant="outline-secondary"
+                            <Button variant="outline-secondary" onClick={addProductInCart}
                                 style={{
                                     paddingTop: 10,
                                     paddingBottom: 10
@@ -145,6 +162,7 @@ function Product() {
                     <h2 className="merch-title">Store</h2>
                 </Col>
             </Row>
+            <SuccessModal showModal = {showModal} setShowModal = {setShowModal} message="Product successfully added in cart!"/>
                 {errorModal}
                 {spinner}
                 {content}

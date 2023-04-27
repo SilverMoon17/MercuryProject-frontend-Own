@@ -7,7 +7,6 @@ import AppFooter from "../appFooter/AppFooter";
 import Login from "../pages/Login/Login";
 import ProductCreating from "../pages/ProductCreating/ProductCreating";
 import Register from "../pages/Register/Register";
-import Ideas from "../pages/Ideas/Ideas";
 import Store from "../pages/Store/Store";
 import IdeaCreating from "../pages/IdeaCreate/IdeaCreating";
 import ReviewIdeas from "../pages/ReviewIdeas/ReviewIdeas";
@@ -20,7 +19,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import background from '../../resources/background.jpg';
-import { Cart } from "../pages/cart";
+import Cart from "../pages/cart/Cart";
 import { ProfilePage } from "../pages/profile";
 
 
