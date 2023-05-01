@@ -1,5 +1,4 @@
-import { Button, Modal, Alert } from 'react-bootstrap';
-import Image from 'react-bootstrap/Image';
+import { Button, Modal, Alert, Container, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -9,6 +8,7 @@ import * as yup from 'yup';
 import './Panel.css';
 import avatar from '../../../resources/avatar.jpg';
 import { axiosInstance } from '../../../API/axios';
+import ProfilePage from '../profile/Profile';
 
 function InputModal({ show, setShow }) {
     const handleClose = () => setShow(false);
@@ -108,26 +108,25 @@ export default function Panel() {
     return (
         <div className='d-block'>
             <InputModal show={show} setShow={setShow} />
-            <Image src={avatar} style={{ width: "15%", height: "15%", marginLeft: "5%", marginTop: "3%" }} />
-            <div className="buttons-block">
-                <Button href="./productCreating" variant='secondary'
-                    style={{ marginLeft: "4%" }}>Create Product</Button>
+            <ProfilePage></ProfilePage>
+            <Container className="buttons-block d-flex justify-content-center">
+                <Col md={8} className="mb-5">
+                    <Button href="./productCreating" variant='secondary'
+                        style={{ marginLeft: "4%" }}>Create Product</Button>
 
-                <Button href="./IdeaCreating" variant='secondary'
-                    style={{ marginLeft: "4%" }}>Submit Idea</Button>
+                    <Button href="./IdeaCreating" variant='secondary'
+                        style={{ marginLeft: "4%" }}>Submit Idea</Button>
 
-                <Button href="/ideas/review" variant='secondary'
-                    style={{ marginLeft: "4%" }}>Check Submited Ideas</Button>
+                    <Button href="/ideas/review" variant='secondary'
+                        style={{ marginLeft: "4%" }}>Check Submited Ideas</Button>
 
-                <Button href="" variant='secondary'
-                    style={{ marginLeft: "4%" }}>Edit Profile</Button>
+                    <Button href="" variant='secondary'
+                        style={{ marginLeft: "4%" }}>Edit Profile</Button>
 
-                <Button variant='secondary' onClick={showModal}
-                    style={{ marginLeft: "4%", marginTop: "5%" }}>Give admin </Button>
-            </div>
-
-            <div style={{ fontFamily: "inherit", fontSize: "20px", marginLeft: "5%" }}>Users Online:</div>
-            <div style={{ fontFamily: "inherit", fontSize: "20px", marginLeft: "5%", marginBottom: "3%" }}>Current/All</div>
+                    <Button variant='secondary' onClick={showModal}
+                        style={{ marginLeft: "4%" }}>Give admin </Button>
+                </Col>
+            </Container>
         </div>
     )
 }

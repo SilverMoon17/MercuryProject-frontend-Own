@@ -20,7 +20,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import background from '../../resources/background.jpg';
 import Cart from "../pages/cart/Cart";
-import { ProfilePage } from "../pages/profile";
+import ProfilePage from "../pages/profile/Profile";
 
 
 
@@ -44,7 +44,7 @@ function App() {
           <Route path="/register" element={<Register/>}/>
           <Route path="/adminPanel" element={<Panel/>}/>
           <Route path="/cart" element={<Cart/>}/>
-          <Route path="/profile" element={<ProfilePage/>}/>
+          <Route path="/profile/:id" element={<ProfilePage/>}/>
           {/* <Route path="/test" element={<Test/>}/> */}
         </Routes>
         <footer className="footer">

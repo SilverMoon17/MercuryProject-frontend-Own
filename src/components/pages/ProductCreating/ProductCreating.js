@@ -141,7 +141,7 @@ export default function ProductCreating(props) {
 			<Row>
 				<Col md={12}>
 					{error && <ErrorModal message={errorMessage} error = {error} setError = {setError}/>}
-					<SuccessModal showModal = {showModal} setShowModal = {setShowModal} message="Product added successfully!"/>
+					<SuccessModal showModal = {showModal} setShowModal = {setShowModal} message="Product added successfully!" url="/productCreating"/>
 					<img src={logo} alt="logo" className='logo-product-creating' width={306} />
 					<div className="product-creating-block d-flex justify-content-between">
 						<div className="product-image-upload">

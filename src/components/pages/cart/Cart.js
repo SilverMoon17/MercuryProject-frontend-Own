@@ -130,6 +130,7 @@ export default function Cart() {
     const items = arr.map(cartItem => {
       const {cartItemId, quantity, product} = cartItem
       const {name, iconUrl, price} = product
+      const roundedTotal = (price*quantity).toFixed(2);
       let {description} = product
       console.log(cartItemId);
       if (description.length > 225) {
@@ -152,7 +153,7 @@ export default function Cart() {
               <span className="quantity-block1">Quantity:{quantity}</span>
             </Col>
             <Col md={3}>
-              <h3>Total: ${price * quantity}</h3>
+              <h3>Total: ${roundedTotal}</h3>
             </Col>
           </Row>
         </div>

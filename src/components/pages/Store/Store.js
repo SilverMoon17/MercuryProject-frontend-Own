@@ -29,7 +29,7 @@ function Store() {
     }, []);
     return (
         <>
-            <Link to='/productCreating' className={isDisabled}><Button variant="custom-button button-absolute" size="lg" style={{color: "#fff"}}>Create new product</Button></Link>
+            <Link to='/productCreating' className={isDisabled}><Button variant="custom-button button-absolute" size="lg" style={{color: "#fff", zIndex: "9999"}}>Create new product</Button></Link>
             <Merch />
         </>
     )
