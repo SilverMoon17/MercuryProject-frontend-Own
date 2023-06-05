@@ -25,8 +25,8 @@ export default function Cardi({id}) {
 
     const handleScroll = () => {
         const position = window.pageYOffset;  
-        const bodyHeight = document.body.scrollHeight;    
-        if(position > 500 && position < bodyHeight - 1000 && role === "Admin" && idea.status === 0) {
+        const bodyHeight = document.body.scrollHeight;   
+        if(position > 500 && position < position < bodyHeight - 1000 && role === "Admin") {
             setDisabled("visible")
         } else {
             setDisabled("hidden")
