@@ -23,7 +23,8 @@ const baseStyle = {
 	display: 'flex',
 	flexDirection: 'column',
 	alignItems: 'center',
-	padding: '20px',
+	padding: '10px',
+	marginRight: '20px',
 	borderWidth: 2,
 	borderRadius: 2,
 	borderColor: '#eeeeee',
@@ -115,15 +116,33 @@ export default function ProductCreating(props) {
 		category: yup.string().notOneOf(['Choose category'], 'You must choose category')
 	});
 
-	const onSubmit = async (values) => {
-		let data = {
-			"name": values.title,
-			"description": values.description,
-			"price": values.price,
-			"stock": values.stockLevel,
-			"category": values.category,
-			"iconUrl": values.iconUrl
-		}
+	const onSubmit = async (values, files) => {
+		// let data = {
+		// 	"name": values.title,
+		// 	"description": values.description,
+		// 	"price": values.price,
+		// 	"stock": values.stockLevel,
+		// 	"category": values.category,
+		// 	// "iconUrl": files.name,
+		// 	"files" : files
+		// }
+		
+		// console.log('data: ', data);
+
+		let data = new FormData();
+  data.append("name", values.title);
+  data.append("description", values.description);
+  data.append("price", values.price);
+  data.append("stock", values.stockLevel);
+  data.append("category", values.category);
+  
+  for (let i = 0; i < files.length; i++) {
+    data.append("files", files[i]);
+  }
+
+  data.forEach((value, key) => {
+	console.log(`${key}: ${value}`);
+  });
 		await axiosInstance.post('/product', data)
 			.then(() => {
 				setError(false);
@@ -145,16 +164,18 @@ export default function ProductCreating(props) {
 					<img src={logo} alt="logo" className='logo-product-creating' width={306} />
 					<div className="product-creating-block d-flex justify-content-between">
 						<div className="product-image-upload">
+						<div className='upload-form' {...getRootProps({style})}>
 							<Image fluid rounded width={400} src={files[0] ? files[0].preview : defaultImage} alt={files[0] ? files[0].name : 'defaultImage'} className="main-img" />
+							<div className='mt-5'>
+								<p className="">Drag 'n' drop zone</p>
+							</div>
+						</div>
 							<aside className="thumbs-container">{thumbs}</aside>
-							<Form.Label style={{'color': 'red'}}>Temporarily unavailable</Form.Label>
+							{/* <Form.Label style={{'color': 'red'}}>Temporarily unavailable</Form.Label> */}
 							<br />
 							<Form.Label>Upload your images</Form.Label>
 
-							{/* <div {...getRootProps({ style })}> */}
-							<div >
-								<p className="">Drag 'n' drop zone</p>
-							</div>
+							{/* <div {...getRootProps({ style })}></div> */}
 						</div>
 						<Formik
 							validationSchema={productCreatingSchema}

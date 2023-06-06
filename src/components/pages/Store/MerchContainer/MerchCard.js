@@ -17,6 +17,7 @@ function ConfirmationModal({ show, setShow, id }) {
 
     const handleClose = () => setShow(false);
 
+    
     const handleOnDelete = async (id) => {
         await axiosInstance.delete(`/product/${id}`)
         .then(() => {
@@ -27,7 +28,7 @@ function ConfirmationModal({ show, setShow, id }) {
             console.log(error);
         }) 
     }
-
+    
     return (
         <>
             <Modal
@@ -35,7 +36,7 @@ function ConfirmationModal({ show, setShow, id }) {
                 onHide={handleClose}
                 backdrop="static"
                 keyboard={false}
-            >
+                >
                 <Modal.Header closeButton>
                     <Modal.Title>Are you sure?</Modal.Title>
                 </Modal.Header>
@@ -54,8 +55,9 @@ function ConfirmationModal({ show, setShow, id }) {
 }
 
 
-function MerchCard({ name, description, iconUrl, price, id }) {
-
+function MerchCard({ name, description, productImageUrls, price, id }) {
+    const pathToResources = ""
+    
     const role = localStorage.getItem("role") || sessionStorage.getItem("role");
     const [validDescription, setValidDescription] = useState(description);
     const [showDeleteIcon, setShowDeleteIcon] = useState(false);
@@ -74,7 +76,7 @@ function MerchCard({ name, description, iconUrl, price, id }) {
             <Link to={`/product/${id}`} className='card-link'>
                 <Card className='text-align-center'>
                     <div className="Bord" style={{ width: '19rem', height: '37rem' }}>
-                        <Card.Img src={iconUrl ? iconUrl : defaultImage} />
+                        <Card.Img src={productImageUrls[0] ? `${pathToResources}/${name}/${productImageUrls[0]}` : defaultImage} />
 
                         <Card.Body>
                             <Card.Title>{name}</Card.Title>

@@ -65,7 +65,8 @@ function Merch() {
 
     function renderList(arr) {
         const items = arr.map(product => {
-            const {name, category, id, description, iconUrl, price, stock } = product
+            console.log(product);
+            const {name, category, id, description, productImageUrls, price, stock } = product
             return (
                 <MerchCard 
                     name = {name} 
@@ -73,7 +74,7 @@ function Merch() {
                     id = {id.value}
                     key = {id.value} 
                     description={description} 
-                    iconUrl = {iconUrl}
+                    productImageUrls = {productImageUrls}
                     price = {price}
                     stock = {stock}
                 />
