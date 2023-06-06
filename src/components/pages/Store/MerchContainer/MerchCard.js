@@ -56,7 +56,7 @@ function ConfirmationModal({ show, setShow, id }) {
 
 
 function MerchCard({ name, description, productImageUrls, price, id }) {
-    const pathToResources = ""
+        
     
     const role = localStorage.getItem("role") || sessionStorage.getItem("role");
     const [validDescription, setValidDescription] = useState(description);
@@ -67,7 +67,7 @@ function MerchCard({ name, description, productImageUrls, price, id }) {
         if (description.length > 100) {
             setValidDescription(description.slice(0, 100) + '...');
         }
-        console.log(role);
+        console.log(productImageUrls.length);
     }, [description])
     return (
         <div style={{ position: 'relative' }} onMouseEnter={() => setShowDeleteIcon(true)} onMouseLeave={() => setShowDeleteIcon(false)}>
@@ -76,7 +76,7 @@ function MerchCard({ name, description, productImageUrls, price, id }) {
             <Link to={`/product/${id}`} className='card-link'>
                 <Card className='text-align-center'>
                     <div className="Bord" style={{ width: '19rem', height: '37rem' }}>
-                        <Card.Img src={productImageUrls[0] ? `${pathToResources}/${name}/${productImageUrls[0]}` : defaultImage} />
+                        <Card.Img src={productImageUrls.length ? require('../../../../resources/productImages/' + name + "/" + productImageUrls[0]) : defaultImage} />
 
                         <Card.Body>
                             <Card.Title>{name}</Card.Title>

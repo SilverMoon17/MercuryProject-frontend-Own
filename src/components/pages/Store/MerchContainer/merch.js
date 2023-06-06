@@ -65,7 +65,6 @@ function Merch() {
 
     function renderList(arr) {
         const items = arr.map(product => {
-            console.log(product);
             const {name, category, id, description, productImageUrls, price, stock } = product
             return (
                 <MerchCard 

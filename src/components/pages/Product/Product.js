@@ -27,7 +27,7 @@ function Product() {
         category: '',
         price: 0,
         stock: 0,
-        iconUrl: null
+        productImageUrls: []
     })
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -51,6 +51,7 @@ function Product() {
     useEffect(() => {
         axiosInstance.get(`/product/${id}`)
             .then(res => {
+                console.log(res.data);
                 setProductInfo(res.data);
                 setLoading(false)
             })
@@ -88,11 +89,14 @@ function Product() {
     // const { name, description, category, price, stock, iconUrl } = productInfo;
 
     function product(productInfo) {
-        const { name, description, category, price, stock, iconUrl } = productInfo;
+        const { name, description, category, price, stock, productImageUrls } = productInfo;
         return (
             <>
                 <Row className="d-flex justify-content-between">
-                    <Image rounded fluid src={iconUrl ? iconUrl : defaultImage} alt={category} style={{ width: "50%" }} />
+                    <Image rounded fluid src={productImageUrls.length ? require('../../../resources/productImages/' + name + "/" + productImageUrls[0]) : defaultImage} alt={category} style={{ width: "50%" }} />
+                    {/* <Carousel activeIndex={index} onSelect={handleSelect} variant='dark' className='mt-5'>
+                        {images}
+                    </Carousel> */}
                     <Col md={5} className="product-block">
                         <div className="product-info-block">
                             <h3 className="product-title">{name}</h3>

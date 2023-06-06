@@ -61,6 +61,8 @@ export default function ProductCreating(props) {
 		accept: {
 			'image/jpeg': ['.jpeg', '.png']
 		},
+		maxSize: 2097152,
+		maxFiles: 5,
 		onDrop: (acceptedFiles) => {
 			setFiles(
 				acceptedFiles.map((file) =>
@@ -173,7 +175,7 @@ export default function ProductCreating(props) {
 							<aside className="thumbs-container">{thumbs}</aside>
 							{/* <Form.Label style={{'color': 'red'}}>Temporarily unavailable</Form.Label> */}
 							<br />
-							<Form.Label>Upload your images</Form.Label>
+							<Form.Label>Upload your images<span style={{color:'red'}}>(Max file size - 2 MB and max 5 files)</span></Form.Label>
 
 							{/* <div {...getRootProps({ style })}></div> */}
 						</div>
