@@ -185,7 +185,6 @@ export default function ProductCreating(props) {
 							initialValues={{
 								title: '',
 								description: '',
-								iconUrl: '',
 								price: 0,
 								stockLevel: 0,
 								category: 'Choose category',
@@ -227,22 +226,6 @@ export default function ProductCreating(props) {
 										/>
 										<Form.Control.Feedback type="invalid">
 											{errors.description}
-										</Form.Control.Feedback>
-									</InputGroup>
-									<InputGroup className="mt-3">
-										<InputGroup.Text id="basic-addon1">iconUrl</InputGroup.Text>
-										<Form.Control
-											placeholder="Product iconUrl"
-											aria-label="Product iconUrl"
-											aria-describedby="basic-addon1"
-											name="iconUrl"
-											value={values.iconUrl}
-											onChange={handleChange}
-											isValid={touched.iconUrl && !errors.iconUrl}
-											isInvalid={!!errors.iconUrl}
-										/>
-										<Form.Control.Feedback type="invalid">
-											{errors.iconUrl}
 										</Form.Control.Feedback>
 									</InputGroup>
 									<Row>

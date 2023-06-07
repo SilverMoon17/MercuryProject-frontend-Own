@@ -8,6 +8,7 @@ import Spinner from "../../spinner/Spinner";
 import SuccessModal from "../../successModal/SuccessModal";
 import logo from "../../../resources/logo(black).svg"
 import defaultImage from "../../../resources/default_image.png"
+import Carousel from 'react-bootstrap/Carousel';
 import minusButton from "../../../resources/button(minus).svg"
 import plusButton from "../../../resources/button(plus).svg"
 
@@ -31,8 +32,10 @@ function Product() {
     })
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-	const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
+    const [index, setIndex] = useState(0);
+
 
     let minusDisabled = false;
     let plusDisabled = false;
@@ -47,6 +50,10 @@ function Product() {
         minusDisabled = false;
         plusDisabled = false;
     }
+
+    const handleSelect = (selectedIndex, e) => {
+        setIndex(selectedIndex);
+    };
 
     useEffect(() => {
         axiosInstance.get(`/product/${id}`)
@@ -72,13 +79,13 @@ function Product() {
 
     const addProductInCart = () => {
         const data = {
-            "productId" : id,
-            "quantity" : quantity
+            "productId": id,
+            "quantity": quantity
         }
         axiosInstance.post(`/cartItem`, data)
-        .then(() => {
-            setShowModal(true)
-        })
+            .then(() => {
+                setShowModal(true)
+            })
             .catch((error) => {
                 console.log(error)
                 setErrorMessage(error.response.data.title ? error.response.data.title : error.message)
@@ -86,17 +93,41 @@ function Product() {
             })
     }
 
+    const renderImages = (arr, name) => {
+        const images = arr.map(imageUrl => {
+            return (
+                <Carousel.Item key={imageUrl + name}>
+                    <Image
+                        className="d-block w-100 slide-img"
+                        src={require('../../../resources/productImages/' + name + "/" + imageUrl)}
+                        alt="Second slide"
+                        rounded
+                    />
+                </Carousel.Item>
+            )
+        })
+        return { images }
+    }
+
     // const { name, description, category, price, stock, iconUrl } = productInfo;
 
     function product(productInfo) {
         const { name, description, category, price, stock, productImageUrls } = productInfo;
+        const { images } = productImageUrls.length ? renderImages(productImageUrls, name) : ""
         return (
             <>
                 <Row className="d-flex justify-content-between">
-                    <Image rounded fluid src={productImageUrls.length ? require('../../../resources/productImages/' + name + "/" + productImageUrls[0]) : defaultImage} alt={category} style={{ width: "50%" }} />
-                    {/* <Carousel activeIndex={index} onSelect={handleSelect} variant='dark' className='mt-5'>
-                        {images}
-                    </Carousel> */}
+                    {/* <Image rounded fluid src={productImageUrls.length ? require('../../../resources/productImages/' + name + "/" + productImageUrls[0]) : defaultImage} alt={category} style={{ width: "50%" }} /> */}
+                    <Carousel activeIndex={index} onSelect={handleSelect} variant='dark' className='mt-5' style={{ width: "50%" }}>
+                        {images ? images : <Carousel.Item>
+                            <Image
+                                className="d-block w-100 slide-img"
+                                src={defaultImage}
+                                alt="Second slide"
+                                rounded
+                            />
+                        </Carousel.Item>}
+                    </Carousel>
                     <Col md={5} className="product-block">
                         <div className="product-info-block">
                             <h3 className="product-title">{name}</h3>
@@ -154,8 +185,8 @@ function Product() {
     }
 
     const productRender = product(productInfo);
-    const errorModal = error ? <ErrorModal message={errorMessage} error={error} setError = {setError}/> : null;
-    const spinner = loading ? <Spinner/> : null;
+    const errorModal = error ? <ErrorModal message={errorMessage} error={error} setError={setError} /> : null;
+    const spinner = loading ? <Spinner /> : null;
     const content = !(loading || error) ? productRender : null;
 
     return (
@@ -166,10 +197,10 @@ function Product() {
                     <h2 className="merch-title">Store</h2>
                 </Col>
             </Row>
-            <SuccessModal showModal = {showModal} setShowModal = {setShowModal} message="Product successfully added in cart!"/>
-                {errorModal}
-                {spinner}
-                {content}
+            <SuccessModal showModal={showModal} setShowModal={setShowModal} message="Product successfully added in cart!" />
+            {errorModal}
+            {spinner}
+            {content}
         </Container>
     )
 }

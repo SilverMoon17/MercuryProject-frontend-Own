@@ -11,6 +11,9 @@ import { axiosInstance } from '../../../API/axios';
 import Spinner from '../../spinner/Spinner';
 import ErrorModal from '../../errorModal/ErrorModal';
 import { Modal } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+
+import defaultImage from "../../../resources/default_image.png"
 
 
 function ConfirmationModal({ show, setShow, id }) {
@@ -129,23 +132,22 @@ export default function Cart() {
   function renderList(arr) {
     const items = arr.map(cartItem => {
       const {cartItemId, quantity, product} = cartItem
-      const {name, iconUrl, price} = product
+      const {name, productImageUrls, price, productId} = product
+      console.log(product);
       const roundedTotal = (price*quantity).toFixed(2);
       let {description} = product
-      console.log(cartItemId);
       if (description.length > 225) {
         description = description.slice(0, 225) + '...';
       }
       return (
-        <>
         <div key={cartItemId} className="cart-item">
         <span className="delete-icon" onClick={() => handleClickOnDeleteIcon(cartItemId)}></span>
           <Row>
             <Col md={3}>
-              <Image src={iconUrl} thumbnail />
+              <Image src={productImageUrls.length ? require('../../../resources/productImages/' + name + "/" + productImageUrls[0]) : defaultImage} thumbnail />
             </Col>
             <Col md={6}>
-              <h3>{name}</h3>
+              <Link to={`/product/${productId}`}><h3>{name}</h3></Link>
               <div className="item-description">
                 {description}
               </div>
@@ -157,7 +159,6 @@ export default function Cart() {
             </Col>
           </Row>
         </div>
-        </>
       )
     })
     return { items }
