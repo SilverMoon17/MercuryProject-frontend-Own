@@ -124,7 +124,7 @@ export default function Panel() {
                         style={{ marginLeft: "4%" }}>Edit Profile</Button>
 
                     <Button variant='secondary' onClick={showModal}
-                        style={{ marginLeft: "4%" }}>Give admin </Button>
+                        style={{ marginLeft: "4%", marginTop: "5px" }}>Give admin rights</Button>
                 </Col>
             </Container>
         </div>

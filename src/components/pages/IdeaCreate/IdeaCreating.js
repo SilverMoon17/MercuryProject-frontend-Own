@@ -106,13 +106,22 @@ export default function IdeaCreating(props) {
 
 
 	const createIdea = async (values) => {
-		let imageUrls = values.images.map(({ url }) => url)
-		let data = {
-			"title": values.title,
-			"description": values.description,
-			"goal": values.goal,
-			"category": values.category,
-			"iconUrls": imageUrls
+		// let data = {
+		// 	"title": values.title,
+		// 	"description": values.description,
+		// 	"goal": values.goal,
+		// 	"category": values.category,
+		// 	"iconUrls": imageUrls
+		// }
+
+		let data = new FormData();
+		data.append("title", values.title);
+		data.append("description", values.description);
+		data.append("goal", values.goal);
+		data.append("category", values.category);
+
+		for (let i = 0; i < files.length; i++) {
+			data.append("files", files[i]);
 		}
 		axiosInstance.post("/idea", data)
 			.then((response) => {
@@ -120,6 +129,7 @@ export default function IdeaCreating(props) {
 				setShowModal(true);
 			})
 			.catch((error) => {
+				console.log(error);
 				setErrorMessage(error.message);
 				setError(true)
 			})
@@ -137,12 +147,7 @@ export default function IdeaCreating(props) {
 		title: yup.string().required(),
 		description: yup.string().required(),
 		goal: yup.number().moreThan(1000).required(),
-		category: yup.string().notOneOf(['Choose category'], 'You must choose category'),
-		images: yup.array().of(
-			yup.object().shape({
-				url: yup.string().url('Please enter a valid URL').required('Please enter an image URL'),
-			})
-		)
+		category: yup.string().notOneOf(['Choose category'], 'You must choose category')
 	});
 
 	return (
@@ -154,16 +159,18 @@ export default function IdeaCreating(props) {
 					<img src={logo} alt="logo" className='logo-idea-creating' width={306} />
 					<div className="idea-creating-block d-flex justify-content-between">
 						<div className="idea-image-upload">
-							<Image fluid rounded width={400} src={files[0] ? files[0].preview : defaultImage} alt={files[0] ? files[0].name : 'defaultImage'} className="main-img" />
-							<aside className="thumbs-container">{thumbs}</aside>
-							<Form.Label style={{'color': 'red'}}>Temporarily unavailable</Form.Label>
-							<br />
-							<Form.Label>Upload your images</Form.Label>
-
-							{/* <div {...getRootProps({ style })}> */}
-							<div >
-								<p className="">Drag 'n' drop zone</p>
+						<div className='upload-form' {...getRootProps({ style })}>
+								<Image fluid rounded width={400} src={files[0] ? files[0].preview : defaultImage} alt={files[0] ? files[0].name : 'defaultImage'} className="main-img" />
+								<div className='mt-5'>
+									<p className="">Drag 'n' drop zone</p>
+								</div>
 							</div>
+							<aside className="thumbs-container">{thumbs}</aside>
+							{/* <Form.Label style={{'color': 'red'}}>Temporarily unavailable</Form.Label> */}
+							<br />
+							<Form.Label>Upload your images<span style={{ color: 'red' }}>(Max file size - 2 MB and max 5 files)</span></Form.Label>
+
+							{/* <div {...getRootProps({ style })}></div> */}
 						</div>
 						<Formik
 							validationSchema={ideaCreatingSchema}
@@ -175,7 +182,6 @@ export default function IdeaCreating(props) {
 								description: '',
 								goal: 0,
 								category: 'Choose category',
-								images: [{ url: '' }]
 							}}
 						>
 							{({
@@ -254,37 +260,6 @@ export default function IdeaCreating(props) {
 												{errors.category}
 											</Form.Control.Feedback>
 										</Form.Group>
-										<FieldArray name="images">
-											{(arrayHelpers) => (
-												<>
-													{values.images.map((image, index) => (
-														<div key={index} className="d-flex align-items-center mb-3">
-															<InputGroup>
-																<InputGroup.Text>Your goal</InputGroup.Text>
-																<Form.Control
-																	type="text"
-																	placeholder="Enter image URL"
-																	name={`images.${index}.url`}
-																	value={image.url}
-																	onChange={(e) => {
-																		handleImageChange(index, e, arrayHelpers);
-																	}}
-																	isInvalid={errors.images && errors.images[index] && touched.images && touched.images[index]}
-																/>
-																<Form.Control.Feedback type="invalid">{errors.images && errors.images[index]?.url}</Form.Control.Feedback>
-															</InputGroup>
-															<Button variant="danger" onClick={() => arrayHelpers.remove(index)}>
-																Remove
-															</Button>
-														</div>
-													))}
-													<Button variant="primary" onClick={() => arrayHelpers.push({ url: '' })}>
-														Add Image
-													</Button>
-												</>
-											)}
-										</FieldArray>
-
 									</Row>
 									<button className="create-button" type='submit'>Submit</button>
 								</Form>

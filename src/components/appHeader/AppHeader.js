@@ -42,11 +42,11 @@ function AppHeader()  {
         }
         window.location.replace("/");
     }
-
+    console.log(role);
     const auth = localStorage.getItem("token") ||sessionStorage.getItem("token") ? 
                 <div className="d-flex align-items-center">
                     <Link to="/cart"><img src={cart_icon} alt="cart_icon" /></Link>
-                    <Link to={role === "Admin" ? '/adminPanel' : `/profile/${localStorage.getItem("id") || sessionStorage.getItem("id")}`} className="nav-link">{localStorage.getItem("username") || sessionStorage.getItem("username")}</Link>
+                    <Link to={role === "Admin" || role === "Developer" ? '/adminPanel' : `/profile/${localStorage.getItem("id") || sessionStorage.getItem("id")}`} className="nav-link">{localStorage.getItem("username") || sessionStorage.getItem("username")}</Link>
                     <button onClick={() => {logOut()}} className="nav-link log-out">Log out</button>
                 </div>
                 :

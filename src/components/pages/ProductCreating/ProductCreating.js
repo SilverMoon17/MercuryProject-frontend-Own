@@ -23,7 +23,8 @@ const baseStyle = {
 	display: 'flex',
 	flexDirection: 'column',
 	alignItems: 'center',
-	padding: '20px',
+	padding: '10px',
+	marginRight: '20px',
 	borderWidth: 2,
 	borderRadius: 2,
 	borderColor: '#eeeeee',
@@ -60,6 +61,8 @@ export default function ProductCreating(props) {
 		accept: {
 			'image/jpeg': ['.jpeg', '.png']
 		},
+		maxSize: 2097152,
+		maxFiles: 5,
 		onDrop: (acceptedFiles) => {
 			setFiles(
 				acceptedFiles.map((file) =>
@@ -115,19 +118,33 @@ export default function ProductCreating(props) {
 		category: yup.string().notOneOf(['Choose category'], 'You must choose category')
 	});
 
-	const onSubmit = async (values) => {
-		let data = {
-			"name": values.title,
-			"description": values.description,
-			"price": values.price,
-			"stock": values.stockLevel,
-			"category": values.category,
-			"iconUrl": values.iconUrl
+	const onSubmit = async (values, files) => {
+		// let data = {
+		// 	"name": values.title,
+		// 	"description": values.description,
+		// 	"price": values.price,
+		// 	"stock": values.stockLevel,
+		// 	"category": values.category,
+		// 	// "iconUrl": files.name,
+		// 	"files" : files
+		// }
+
+		// console.log('data: ', data);
+
+		let data = new FormData();
+		data.append("name", values.title);
+		data.append("description", values.description);
+		data.append("price", values.price);
+		data.append("stock", values.stockLevel);
+		data.append("category", values.category);
+
+		for (let i = 0; i < files.length; i++) {
+			data.append("files", files[i]);
 		}
 		await axiosInstance.post('/product', data)
 			.then(() => {
 				setError(false);
-				setShowModal(true);	
+				setShowModal(true);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -140,29 +157,30 @@ export default function ProductCreating(props) {
 		<Container>
 			<Row>
 				<Col md={12}>
-					{error && <ErrorModal message={errorMessage} error = {error} setError = {setError}/>}
-					<SuccessModal showModal = {showModal} setShowModal = {setShowModal} message="Product added successfully!" url="/productCreating"/>
+					{error && <ErrorModal message={errorMessage} error={error} setError={setError} />}
+					<SuccessModal showModal={showModal} setShowModal={setShowModal} message="Product added successfully!" url="/productCreating" />
 					<img src={logo} alt="logo" className='logo-product-creating' width={306} />
 					<div className="product-creating-block d-flex justify-content-between">
 						<div className="product-image-upload">
-							<Image fluid rounded width={400} src={files[0] ? files[0].preview : defaultImage} alt={files[0] ? files[0].name : 'defaultImage'} className="main-img" />
-							<aside className="thumbs-container">{thumbs}</aside>
-							<Form.Label style={{'color': 'red'}}>Temporarily unavailable</Form.Label>
-							<br />
-							<Form.Label>Upload your images</Form.Label>
-
-							{/* <div {...getRootProps({ style })}> */}
-							<div >
-								<p className="">Drag 'n' drop zone</p>
+							<div className='upload-form' {...getRootProps({ style })}>
+								<Image fluid rounded width={400} src={files[0] ? files[0].preview : defaultImage} alt={files[0] ? files[0].name : 'defaultImage'} className="main-img" />
+								<div className='mt-5'>
+									<p className="">Drag 'n' drop zone</p>
+								</div>
 							</div>
+							<aside className="thumbs-container">{thumbs}</aside>
+							{/* <Form.Label style={{'color': 'red'}}>Temporarily unavailable</Form.Label> */}
+							<br />
+							<Form.Label>Upload your images<span style={{ color: 'red' }}>(Max file size - 2 MB and max 5 files)</span></Form.Label>
+
+							{/* <div {...getRootProps({ style })}></div> */}
 						</div>
 						<Formik
 							validationSchema={productCreatingSchema}
-							onSubmit={(values) => {onSubmit(values, files);}}
+							onSubmit={(values) => { onSubmit(values, files); }}
 							initialValues={{
 								title: '',
 								description: '',
-								iconUrl: '',
 								price: 0,
 								stockLevel: 0,
 								category: 'Choose category',
@@ -204,22 +222,6 @@ export default function ProductCreating(props) {
 										/>
 										<Form.Control.Feedback type="invalid">
 											{errors.description}
-										</Form.Control.Feedback>
-									</InputGroup>
-									<InputGroup className="mt-3">
-										<InputGroup.Text id="basic-addon1">iconUrl</InputGroup.Text>
-										<Form.Control
-											placeholder="Product iconUrl"
-											aria-label="Product iconUrl"
-											aria-describedby="basic-addon1"
-											name="iconUrl"
-											value={values.iconUrl}
-											onChange={handleChange}
-											isValid={touched.iconUrl && !errors.iconUrl}
-											isInvalid={!!errors.iconUrl}
-										/>
-										<Form.Control.Feedback type="invalid">
-											{errors.iconUrl}
 										</Form.Control.Feedback>
 									</InputGroup>
 									<Row>
