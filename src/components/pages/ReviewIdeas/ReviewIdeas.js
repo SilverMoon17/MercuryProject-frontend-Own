@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { axiosInstance } from '../../../API/axios';
 import Ideas from "../Ideas/Ideas";
 
-export default function ReviewIdeas() {
+  export default function ReviewIdeas() {
   const [ideasList, setIdeasList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);

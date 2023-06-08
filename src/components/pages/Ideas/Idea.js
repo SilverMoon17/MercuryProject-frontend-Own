@@ -12,7 +12,7 @@ import * as yup from 'yup';
 
 
 import './Idea.css';
-import img from "../../../resources/idea_img1.png";
+import img from "../../../resources/default_image.png";
 function InputModal({ show, setShow, IdeaId }) {
     const handleClose = () => setShow(false);
 
@@ -184,7 +184,7 @@ export default function Idea(
             {role === "Admin" ? showDeleteIcon && <span className="delete-icon" onClick={() => setShowModal(true)}></span> : null}
             {showModal && <ConfirmationModal show={showModal} setShow={setShowModal} id={id} />}
             {showModalInput && <InputModal show={showModalInput} setShow={setShowModalInput} IdeaId={id} />}
-                <Image className='idea-image' rounded src={imageUrls ? imageUrls[0] : img} style={{ marginLeft: "10px" }} />
+                <Image className='idea-image' rounded src={imageUrls.length ? require('../../../resources/' + imageUrls[0]) : img} style={{ marginLeft: "10px" }} />
                 <div className="idea-block-info">
                     <h3 className="idea-title">{title}</h3>
                     <label className='category'>{category}</label>

@@ -144,7 +144,7 @@ export default function Cart() {
         <span className="delete-icon" onClick={() => handleClickOnDeleteIcon(cartItemId)}></span>
           <Row>
             <Col md={3}>
-              <Image src={productImageUrls.length ? require('../../../resources/productImages/' + name + "/" + productImageUrls[0]) : defaultImage} thumbnail />
+              <Image src={productImageUrls.length ? require('../../../resources/' + productImageUrls[0]) : defaultImage} thumbnail />
             </Col>
             <Col md={6}>
               <Link to={`/product/${productId}`}><h3>{name}</h3></Link>

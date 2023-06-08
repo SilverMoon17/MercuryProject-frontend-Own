@@ -76,7 +76,7 @@ function MerchCard({ name, description, productImageUrls, price, id }) {
             <Link to={`/product/${id}`} className='card-link'>
                 <Card className='text-align-center'>
                     <div className="Bord" style={{ width: '19rem', height: '37rem' }}>
-                        <Card.Img src={productImageUrls.length ? require('../../../../resources/productImages/' + name + "/" + productImageUrls[0]) : defaultImage} />
+                        <Card.Img src={productImageUrls.length ? require('../../../../resources/' + productImageUrls[0]) : defaultImage} />
 
                         <Card.Body>
                             <Card.Title>{name}</Card.Title>

@@ -99,7 +99,7 @@ function Product() {
                 <Carousel.Item key={imageUrl + name}>
                     <Image
                         className="d-block w-100 slide-img"
-                        src={require('../../../resources/productImages/' + name + "/" + imageUrl)}
+                        src={require('../../../resources/' + imageUrl)}
                         alt="Second slide"
                         rounded
                     />
