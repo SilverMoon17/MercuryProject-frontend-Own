@@ -33,12 +33,15 @@ function AppHeader()  {
             localStorage.removeItem("id")
             localStorage.removeItem("username")
             localStorage.removeItem("token")
+            localStorage.removeItem("role")
         }
         if(sessionStorage.getItem("id") && sessionStorage.getItem("username") && sessionStorage.getItem("token"))
         {
             sessionStorage.removeItem("id")
             sessionStorage.removeItem("username")
             sessionStorage.removeItem("token")
+            sessionStorage.removeItem("role")
+
         }
         window.location.replace("/");
     }
